@@ -4,19 +4,30 @@ ui <- fluidPage(
   fluidRow(
     column(4,
            tags$div(class = "card",
-                    selectizeInput(
-                      'searchText', 'Scroll of type in species', 
-                      choices = choices, 
-                      multiple = FALSE
-                    ),
-                    ),
-           br(),
-           tags$div(class = "card",
-                    tableOutput("filtered_table"))
-           ),
+                    tags$div(class = "header", "Scroll or type in species"),
+                    tags$div(class = "content",
+                      selectizeInput(
+                        'searchText', '', 
+                        choices = NULL, 
+                        multiple = FALSE
+                      ),
+                      hr(),
+                      p(tags$strong("Common Name:"), 
+                        textOutput(outputId = "vernacular") 
+                      ),
+                      p(tags$strong("Scientific Name:"), 
+                        textOutput(outputId = "scientific") 
+                      ),
+                      p(tags$strong("Number of Observations:"), 
+                        textOutput(outputId = "observations", inline = T) 
+                      )
+                    )
+           )
+          ),
     column(8,
            tags$div(
              class = "card map",
+             tags$div(class = "header", "Click on an observation for more details"),
              tags$style(type = "text/css", "#map {height: 100% !important; 
                         width: 100% !important;}"),
              leafletOutput("map", 500)

@@ -5,6 +5,14 @@
   padding: 5px;
   border-radius: 10px;
 }
+.card .header {
+    border-bottom: 1px solid maroon;
+    text-align: center;
+    line-height: 2.5em;
+}
+.card .content {
+  padding: 5px;
+}
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
