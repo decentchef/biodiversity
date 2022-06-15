@@ -4,6 +4,7 @@
   transition: 0.3s;
   padding: 5px;
   border-radius: 10px;
+  height: 100%;
 }
 .card .header {
     border-bottom: 1px solid maroon;
@@ -18,12 +19,6 @@
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-
-/* Add some padding inside the card container */
-.container {
-  padding: 2px;
-}
-
 
 .map {
   height: calc(70vh - 80px);

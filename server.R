@@ -8,7 +8,12 @@ server <- function(input, output, session) {
         
         searchData <- searchData %>% filter(tolower(vernacularName) %in% tolower(input$searchText) |
                                               tolower(scientificName) %in% tolower(input$searchText))
-        
+        # create csv for timeline
+        searchData %>% select(scientificName, eventDate) %>% 
+          group_by(eventDate) %>% 
+          summarise(n = n()) %>% 
+          toJSON() %>% 
+          write_lines("tempSearchResult.json")
         return(searchData)
       })
       
@@ -16,7 +21,7 @@ server <- function(input, output, session) {
       output$map <- renderLeaflet({
         
         content <- paste0(
-                         "<b><a href='",searchResults()$occurrenceID,"'>",
+                         "<b><a href='",searchResults()$occurrenceID,"'target='_blank'>",
                          searchResults()$vernacularName,"</a></b>", 
                          "<br>",
                          searchResults()$scientificName
@@ -80,5 +85,12 @@ server <- function(input, output, session) {
           ylab("Number of Sightings") +
           xlab("Time of Day")
         
+      })
+      # timeline module
+      addResourcePath("dist", "~/biodiversity/dist/")
+      output$timeline <- renderUI({
+        tags$iframe(
+          seamless="seamless",
+          src="dist/index.html")
       })
 }

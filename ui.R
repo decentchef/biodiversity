@@ -4,10 +4,10 @@ ui <- fluidPage(
   fluidRow(
     column(4,
            tags$div(class = "card",
-                    tags$div(class = "header", "Scroll or type in species"),
+                    tags$div(class = "header", "Species Details"),
                     tags$div(class = "content",
                       selectizeInput(
-                        'searchText', '', 
+                        'searchText', 'Scroll or type in species', 
                         choices = NULL, 
                         multiple = FALSE
                       ),
@@ -31,10 +31,16 @@ ui <- fluidPage(
     column(8,
            tags$div(
              class = "card map",
-             tags$div(class = "header", "Click on an observation for more details, scroll to zoom"),
+             tags$div(class = "header", "Click on an observation for more details"),
              
              leafletOutput("map",height = "95%")
                      )
+           )
+  ),
+  hr(),
+  fluidRow(
+    column(12,
+           HTML("<iframe src='dist/index.html' style='border:none;' height='100%' width='100%'></iframe>")
            )
   )
 )
