@@ -20,6 +20,10 @@ ui <- fluidPage(
                       ),
                       p(tags$strong("Number of Observations:"), 
                         textOutput(outputId = "observations", inline = T) 
+                      ),
+                      hr(),
+                      p(tags$strong("Time of Sightings:"), 
+                        plotOutput("sightings",height = "225px") 
                       )
                     )
            )
@@ -27,10 +31,9 @@ ui <- fluidPage(
     column(8,
            tags$div(
              class = "card map",
-             tags$div(class = "header", "Click on an observation for more details"),
-             tags$style(type = "text/css", "#map {height: 100% !important; 
-                        width: 100% !important;}"),
-             leafletOutput("map", 500)
+             tags$div(class = "header", "Click on an observation for more details, scroll to zoom"),
+             
+             leafletOutput("map",height = "95%")
                      )
            )
   )

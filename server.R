@@ -24,7 +24,11 @@ server <- function(input, output, session) {
         region_popup <- paste0("<strong>",
                                pol$NAME_1,
                                "</strong>")
-      
+        
+        marker <- makeAwesomeIcon(icon = 'circle', markerColor = 'red', 
+                                  library='fa', 
+                                  iconColor = '#eaeaea')
+        
         leaflet(pol) %>%
           setView(lng = 19.03560, 52.21380, zoom = 6) %>% 
           addProviderTiles("CartoDB") %>% 
@@ -36,9 +40,11 @@ server <- function(input, output, session) {
                                                           bringToFront = TRUE),
                       popup = region_popup
                       ) %>% 
-          addMarkers(lng = ~searchResults()$longitudeDecimal, 
+          addAwesomeMarkers(lng = ~searchResults()$longitudeDecimal, 
                      lat = ~searchResults()$latitudeDecimal,
-                     popup = content)
+                     popup = content,
+                     icon = marker,
+                     markerClusterOptions(spiderfyOnMaxZoom = T))
       })
       
       # details module
@@ -56,5 +62,23 @@ server <- function(input, output, session) {
         s <- searchResults()$scientificName[1]
         s <- ifelse(is.na(s),"",s)
         return(s)
+      })
+      # sightings module
+      countResults <- reactive({
+        searchResults() %>% filter(!is.na(eventTime))
+      })
+      output$sightings <- renderPlot({
+        
+        ggplot(countResults(), aes(eventTime, nrow(countResults())
+                                   )) +
+          geom_col(stat = "bin") +
+          theme_minimal() +
+          theme(axis.ticks.x = element_blank(),
+                axis.ticks.y = element_blank(),
+                axis.text.y = element_blank(),
+                text = element_text(size = 16)) +
+          ylab("Number of Sightings") +
+          xlab("Time of Day")
+        
       })
 }

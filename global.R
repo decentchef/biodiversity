@@ -1,6 +1,8 @@
 library(shiny)
 library(shinydashboard)
 library(dplyr)
+library(ggplot2)
+library(ggridges)
 library(leaflet)
 
 #source("modules/counter.R")
