@@ -13,7 +13,8 @@ ui <- fluidPage(
                              ),
                              details_UI("details"),
                              hr(),
-                             sightings_UI("sightings")
+                             sightings_UI("sightings"),
+                             timeline_UI("timeline")
                     )
            )
           ),
@@ -28,7 +29,7 @@ ui <- fluidPage(
   hr(),
   fluidRow(
     column(12,
-           HTML("<iframe src='dist/index.html' style='border:none;' height='100%' width='100%'></iframe>")
+           
            )
   )
 )

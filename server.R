@@ -9,11 +9,13 @@ server <- function(input, output, session) {
         searchData <- searchData %>% filter(tolower(vernacularName) %in% tolower(input$searchText) |
                                               tolower(scientificName) %in% tolower(input$searchText))
         # create csv for timeline
-        searchData %>% select(scientificName, eventDate) %>% 
+        search <- searchData %>% select(scientificName, eventDate) %>% 
           group_by(eventDate) %>% 
           summarise(n = n()) %>% 
-          toJSON() %>% 
-          write_lines("~/search.json")
+          toJSON() 
+        
+        write_lines(paste0("let searchResults  = ", search), file = "www/searchResults.js" )
+        
         return(searchData)
       })
       
@@ -27,10 +29,5 @@ server <- function(input, output, session) {
       sightings_server("sightings", search = searchResults)
       
       # timeline module
-      addResourcePath("dist", "~/biodiversity/dist/")
-      output$timeline <- renderUI({
-        tags$iframe(
-          seamless="seamless",
-          src="dist/index.html")
-      })
+      timeline_server("timeline", search = searchResults)
 }
