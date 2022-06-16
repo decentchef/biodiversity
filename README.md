@@ -11,4 +11,4 @@ The polygons for the map come from [Poland map data](https://geodata.ucdavis.edu
 - Error handling on initial load
 - Edit sf object level 1 names to include non UTF-8 characters
 - Randomize selection on load
-- Get request to see if the observation has an associated picture of each observation. Add to popup.
+- Get request to see if the observation has an associated picture of each observation -> add to popup.
