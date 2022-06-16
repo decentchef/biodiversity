@@ -8,14 +8,7 @@ server <- function(input, output, session) {
         
         searchData <- searchData %>% filter(tolower(vernacularName) %in% tolower(input$searchText) |
                                               tolower(scientificName) %in% tolower(input$searchText))
-        # create csv for timeline
-        search <- searchData %>% select(scientificName, eventDate) %>% 
-          group_by(eventDate) %>% 
-          summarise(n = n()) %>% 
-          toJSON() 
-        
-        write_lines(paste0("let searchResults  = ", search), file = "www/searchResults.js" )
-        
+      
         return(searchData)
       })
       
