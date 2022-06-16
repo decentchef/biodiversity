@@ -6,25 +6,14 @@ ui <- fluidPage(
            tags$div(class = "card",
                     tags$div(class = "header", "Species Details"),
                     tags$div(class = "content",
-                      selectizeInput(
-                        'searchText', 'Scroll or type in species', 
-                        choices = NULL, 
-                        multiple = FALSE
-                      ),
-                      hr(),
-                      p(tags$strong("Common Name:"), 
-                        textOutput(outputId = "vernacular") 
-                      ),
-                      p(tags$strong("Scientific Name:"), 
-                        textOutput(outputId = "scientific") 
-                      ),
-                      p(tags$strong("Number of Observations:"), 
-                        textOutput(outputId = "observations", inline = T) 
-                      ),
-                      hr(),
-                      p(tags$strong("Time of Sightings:"), 
-                        plotOutput("sightings",height = "225px") 
-                      )
+                             selectizeInput(
+                               'searchText', 'Scroll or type in species', 
+                               choices = NULL, 
+                               multiple = FALSE
+                             ),
+                             details_UI("details"),
+                             hr(),
+                             sightings_UI("sightings")
                     )
            )
           ),
@@ -32,8 +21,7 @@ ui <- fluidPage(
            tags$div(
              class = "card map",
              tags$div(class = "header", "Click on an observation for more details"),
-             
-             leafletOutput("map",height = "95%")
+             leaflet_UI("leaflet")
                      )
            )
   ),
